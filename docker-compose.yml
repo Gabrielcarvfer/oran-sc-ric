@@ -7,7 +7,7 @@ services:
     image: nexus3.o-ran-sc.org:10002/o-ran-sc/ric-plt-dbaas:${DBAAS_VER}
     command: redis-server --loadmodule /usr/local/libexec/redismodule/libredismodule.so
     networks:
-      ric_network:
+      default:
         ipv4_address: ${DBAAS_IP:-10.0.2.12}
 
   rtmgr_sim:
@@ -37,7 +37,7 @@ services:
         source: ./ric/configs/routes.rtg
         target: /opt/config/uta-rtg.rt
     networks:
-      ric_network:
+      default:
         ipv4_address: ${RTMGR_SIM_IP:-10.0.2.15}
 
   submgr:
@@ -63,7 +63,7 @@ services:
         source: ./ric/configs/routes.rtg
         target: /opt/config/submgr-uta-rtg.rt
     networks:
-      ric_network:
+      default:
         ipv4_address: ${SUBMGR_IP:-10.0.2.13}
 
   e2term:
@@ -89,7 +89,7 @@ services:
         source: ./ric/configs/routes.rtg
         target: /opt/e2/dockerRouter.txt
     networks:
-      ric_network:
+      default:
         ipv4_address: ${E2TERM_IP:-10.0.2.10}
 
   appmgr:
@@ -113,7 +113,7 @@ services:
         source: ./ric/configs/appmgr.yaml
         target: /opt/ric/config/appmgr.yaml
     networks:
-      ric_network:
+      default:
         ipv4_address: ${APPMGR_IP:-10.0.2.14}
 
   e2mgr:
@@ -138,7 +138,7 @@ services:
         source: ./ric/configs/e2mgr.yaml
         target: /opt/E2Manager/resources/configuration.yaml
     networks:
-      ric_network:
+      default:
         ipv4_address: ${E2MGR_IP:-10.0.2.11}
 
   python_xapp_runner:
@@ -171,12 +171,10 @@ services:
       #  source: ./Path/to/your/local/ric-plt-xapp-frame-py
       #  target: /opt/ric-plt-xapp-frame-py
     networks:
-      ric_network:
+      default:
         ipv4_address: ${XAPP_PY_RUNNER_IP:-10.0.2.20}
 
 networks:
-  ric_network:
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.0.2.0/24
+  default:
+    external:
+      name: docker_open5gs_default
