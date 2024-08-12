@@ -1,7 +1,5 @@
-version: '3.9'
-
 services:
-  dbaas:
+  dbaasd:
     container_name: ric_dbaas
     hostname: dbaas
     image: nexus3.o-ran-sc.org:10002/o-ran-sc/ric-plt-dbaas:${DBAAS_VER}
@@ -176,5 +174,5 @@ services:
 
 networks:
   default:
-    external:
-      name: docker_open5gs_default
+    external: true
+    name: docker_open5gs_default
