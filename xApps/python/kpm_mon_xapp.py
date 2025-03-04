@@ -17,7 +17,6 @@ class MyXapp(xAppBase):
 
         indication_hdr = self.e2sm_kpm.extract_hdr_info(indication_hdr)
         meas_data = self.e2sm_kpm.extract_meas_data(indication_msg)
-
         print("E2SM_KPM RIC Indication Content:")
         print("-ColletStartTime: ", indication_hdr['colletStartTime'])
         print("-Measurements Data:")
